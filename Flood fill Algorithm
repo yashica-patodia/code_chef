@@ -1,0 +1,72 @@
+Concept
+
+With respect of a given rectangle, our task is to fill this rectangle applying flood fill algorithm.
+
+Input 
+
+rectangle(left = 50, top = 50, right= 100, bottom = 100)
+floodFill( a = 55, b = 55, NewColor = 12, OldColor = 0)
+Output 
+
+
+
+Method
+// A recursive function to replace previous color 'OldColor' at '(a, b)' and all surrounding pixels of (a, b) with new color 'NewColor' and floodFill(a, b, NewColor, OldColor)
+
+If a or b is outside the screen, thenreturn.
+
+If color of getpixel(a, b) is same asOldColor, then
+
+Recur for top, bottom, right and left.
+
+floodFill(a+1, b, NewColor, OldColor);<
+
+floodFill(a-1, b, NewColor, OldColor);
+
+floodFill(a, b+1, NewColor, OldColor);
+
+floodFill(a, b-1, NewColor, OldColor);
+
+Example
+// Shows program to fill polygon using floodfill
+// algorithm
+#include <graphics.h>
+#include <stdio.h>
+// Describes flood fill algorithm
+void flood(int x1, int y1, int new_col, int old_col){
+   // Checking current pixel is old_color or not
+   if (getpixel(x1, y1) == old_col) {
+      // Putting new pixel with new color
+      putpixel(x1, y1, new_col);
+      // Shows recursive call for bottom pixel fill
+      flood(x1 + 1, y1, new_col, old_col);
+      //Shows recursive call for top pixel fill
+      flood(x1 - 1, y1, new_col, old_col);
+      // Shows recursive call for right pixel fill
+      flood(x1, y1 + 1, new_col, old_col);
+      // Shows recursive call for left pixel fill
+      flood(x1, y1 - 1, new_col, old_col);
+   }
+}
+int main(){
+   int gd1, gm1 = DETECT;
+   // Initializing graph
+   initgraph(&gd1, &gm1, "");
+   //Shows rectangle coordinate
+   int top1, left1, bottom1, right1;
+   top1 = left1 = 50;
+   bottom1 = right1 = 300;
+   // Shows rectangle for print rectangle
+   rectangle(left1, top1, right1, bottom1);
+   // Fills start cordinate
+   int x1 = 51;
+   int y1 = 51;
+   // Shows new color to fill
+   int newcolor = 12;
+   // Shows old color which you want to replace
+   int oldcolor = 0;
+   // Calling for fill rectangle
+   flood(x1, y1, newcolor, oldcolor);
+   getch();
+   return 0;
+}
